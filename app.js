@@ -6,11 +6,12 @@ let btns = ["red", "blue", "green", "orange"];
 let started = false;
 let level = 0;
 let h2 = document.querySelector("h2");
+document.querySelector("body").style.backgroundColor="#D2E0FB";
 
-document.addEventListener("keypress", function () {
+document.addEventListener("mousedown", function () {
     if (started == false) {
         started = true;
-
+        document.querySelector("body").style.backgroundColor="#D2E0FB";
         levelUp();
 
     }
@@ -25,21 +26,23 @@ function levelUp() {
     let randColor = btns[randIdx];
     let randBtn = document.querySelector(`.${randColor}`);
     gameSeq.push(randColor);
-    gameFlash(randBtn);
+    setTimeout(() => {
+        gameFlash(randBtn);
+    }, 700);
+    
+    
 }
 
 function checkAns(idx) {
     if (userSeq[idx] === gameSeq[idx]) {
         if (userSeq.length == gameSeq.length) {
-            setTimeout(levelUp, 1000);
+            setTimeout(levelUp, 300);
         }
     }
     else {
-        h2.innerHTML = `Game Over! Your Score was <b>${level}</b> <br> Press any key to start.`;
+        h2.innerHTML = `Game Over! Your Score was <b>${level}</b> <br> Click anywhere to start.`;
         document.querySelector("body").style.backgroundColor="red";
-        setTimeout(function() {
-            document.querySelector("body").style.backgroundColor="white";
-        }, 1000);
+      
         reset();
     }
 }
@@ -62,13 +65,13 @@ function gameFlash(btn) {
     btn.classList.add("flash");
     setTimeout(() => {
         btn.classList.remove("flash");
-    }, 250);
+    }, 300);
 }
 function userFlash(btn) {
     btn.classList.add("userflash");
     setTimeout(() => {
         btn.classList.remove("userflash");
-    }, 250);
+    }, 300);
 }
 
 function reset(){
